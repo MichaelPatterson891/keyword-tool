@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Clustering Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Keyword Clustering Tool</h1>
+    <form id="keywordForm">
+        <input type="text" id="mainKeyword" placeholder="Enter your main keyword" required>
+        <button type="submit">Generate Keywords</button>
+    </form>
+
+    <script>
+        document.getElementById('keywordForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const keyword = document.getElementById('mainKeyword').value;
+            fetch('/generate_keywords', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ keyword: keyword })
+            })
+            .then(response => response.json())
+            .then(data => {
+                localStorage.setItem('keywords', JSON.stringify(data));
+                window.location.href = '/results';
+            });
+        });
+    </script>
+</body>
+</html>

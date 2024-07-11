@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Clustering Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Generated Keywords</h1>
+    <div id="results"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const keywords = JSON.parse(localStorage.getItem('keywords')) || [];
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<ul>' + keywords.map(k => `<li>${k}</li>`).join('') + '</ul>';
+        });
+    </script>
+</body>
+</html>
